@@ -1,12 +1,16 @@
 const express = require('express');
 const app = express();
 const db = require('./db/connection');
+const bodyParser = require('body-parser');
 
 const PORT = 3000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// body parser
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // db connection
 db.authenticate()
@@ -19,7 +23,9 @@ db.authenticate()
   
 
 // routes
-
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.send('Está funcionando!');
 });
+
+// job routes
+app.use('/jobs', require('./routes/jobs'))
